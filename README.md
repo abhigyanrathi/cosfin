@@ -4,10 +4,8 @@ A quantitative finance library implementing models and numerical methods from
 Oosterlee & Grzelak, *Mathematical Modelling and Computation in Finance*
 (Chapters 1–8).
 
-> **About this repository.** This is a **practice / learning companion** repo. It
-> is used to rehearse packaging, tooling, and Git workflow, and to hold reference
-> ("answer-key") implementations. The production library lives in a separate
-> repository. Code here is not a substitute for that library.
+> **About this repository.** This is a **practice** repo. It
+> is used to rehearse packaging, tooling, and Git workflow.
 
 ## Layout
 
@@ -41,6 +39,3 @@ mypy
 pytest
 ```
 
-## License
-
-MIT — see [LICENSE](LICENSE).
