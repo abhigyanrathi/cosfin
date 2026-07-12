@@ -1,66 +1,19 @@
-# ----------------------------------------------------------------------------
-# Build backend: how `pip install .` turns this source tree into a package.
-# setuptools is the established choice for this project; build_meta is the
-# PEP 517 entry point pip calls.
-# ----------------------------------------------------------------------------
 [build-system]
-requires = ["setuptools>=68.0", "wheel"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
-# ----------------------------------------------------------------------------
-# PEP 621 project metadata. This is what users / PyPI / JOSS read.
-# ----------------------------------------------------------------------------
 [project]
 name = "pyfinlib-practice"
-version = "0.1.0"
-description = "Quantitative finance library following Oosterlee & Grzelak (practice/learning companion)."
-readme = "README.md"
+version = "0.2.0"
+description = "Answer-key implementations of Oosterlee & Grzelak Ch2-6 plus replication harnesses"
 requires-python = ">=3.12"
-license = { text = "MIT" }
-authors = [{ name = "Abhigyan Rathi" }]
-keywords = [
-    "quantitative-finance",
-    "option-pricing",
-    "black-scholes",
-    "monte-carlo",
-    "stochastic-processes",
-]
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Topic :: Scientific/Engineering :: Mathematics",
-    "Typing :: Typed",
-]
-# Runtime dependencies only. Kept minimal on purpose: a consumer who just wants
-# to price an option should not be forced to install matplotlib/pandas.
-dependencies = [
-    "numpy>=2.0",
-    "scipy>=1.13",
-]
+dependencies = ["numpy>=2.0", "scipy>=1.13"]
 
 [project.optional-dependencies]
-# Everything needed to develop, test, lint, type-check, and run the notebooks.
-dev = [
-    "pytest>=8.0",
-    "pytest-cov>=4.1",
-    "ruff>=0.6",
-    "mypy>=1.11",
-    "pandas>=2.0",
-    "matplotlib>=3.8",
-    "nbformat>=5.9",
-]
+dev = ["pytest>=8", "pytest-cov", "ruff", "mypy"]
+plots = ["matplotlib>=3.8"]
 
-[project.urls]
-Repository = "https://github.com/abhigyanrathi/pyfinlib-practice"
-
-# ----------------------------------------------------------------------------
-# src-layout: tell setuptools the importable packages live under src/, not the
-# repo root. This is the line the project notes flag as critical.
-# ----------------------------------------------------------------------------
+# src-layout: importable packages live under src/, not the repo root.
 [tool.setuptools.packages.find]
 where = ["src"]
 
@@ -68,35 +21,25 @@ where = ["src"]
 [tool.setuptools.package-data]
 pyfinlib_practice = ["py.typed"]
 
-# ----------------------------------------------------------------------------
-# ruff: linter + import sorter. Fast, replaces flake8/isort.
-# ----------------------------------------------------------------------------
 [tool.ruff]
 line-length = 100
 target-version = "py312"
 src = ["src", "tests"]
 
 [tool.ruff.lint]
-# E/F  = pyflakes + pycodestyle errors   I = isort        N = pep8-naming
-# UP   = pyupgrade   B = bugbear   SIM = simplify   RUF = ruff-specific
+# E/F = pycodestyle + pyflakes   I = isort   N = pep8-naming
+# UP  = pyupgrade   B = bugbear   SIM = simplify   RUF = ruff-specific
 select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
 
-# ----------------------------------------------------------------------------
-# mypy: static type checking in strict mode. Non-negotiable for this project.
-# ----------------------------------------------------------------------------
+[tool.ruff.lint.per-file-ignores]
+# matplotlib.use("Agg") must run before the pyplot import.
+"scripts/*" = ["E402"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true
 files = ["src", "tests"]
 
-# ----------------------------------------------------------------------------
-# pytest: where tests live and default flags.
-# -ra prints a short summary of all non-passing test outcomes.
-# ----------------------------------------------------------------------------
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
-
-[tool.coverage.run]
-source = ["pyfinlib_practice"]
-branch = true
