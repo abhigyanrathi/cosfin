@@ -1,5 +1,7 @@
 # pyfinlib-practice
 
+[![CI](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml)
+
 Reference ("answer-key") implementations of models and numerical methods
 from Oosterlee & Grzelak, *Mathematical Modelling and Computation in
 Finance*, Chapters 2–6, plus the mentor-confirmed Chapter 5–6 replication
@@ -20,7 +22,7 @@ python3 -m venv .venv
 .venv/bin/python -m pytest      # 249 tests, ~15-30 s
 .venv/bin/python -m pytest --cov=pyfinlib_practice --cov-report=term-missing
 .venv/bin/ruff check src tests
-.venv/bin/mypy                  # strict, src + tests, 26 files
+.venv/bin/mypy                  # strict, src + tests, 30 files
 ```
 
 Requires Python ≥ 3.12, numpy ≥ 2.0, scipy ≥ 1.13.
@@ -83,6 +85,8 @@ All three gates green: **249 pytest**, **ruff clean**, **mypy --strict
 clean** across 30 files; line coverage **100%** (one documented
 `pragma: no cover` on a provably unreachable defensive guard). Anchor policy: external published values where
 available, cross-method agreement everywhere, and no invented table values.
+Full reproduction transcript with convergence tables: `docs/RESULTS.md`
+(regenerate with `python scripts/reproduce_tables.py`).
 
 - Black-Scholes vs the published ATM value 10.4506 and Hull's S=42 example
   (4.76 / 0.81), plus full-precision internal regressions.
@@ -107,7 +111,9 @@ available, cross-method agreement everywhere, and no invented table values.
   by N=64; Table 6.5 reference 0.273306496 reproduced to 5e-10 once the
   Example-6.3.1 pays-K cash convention is applied — this closes the
   long-standing reproduction failure; Table 6.7 (CGMYB, C=1,G=5,M=5,σ=0.2)
-  21.679593920 / 50.279533980 reproduced to 3.5e-8; Table 6.8 (VG)
+  21.679593920 / 50.279533980 reproduced to 1.8e-9 / ≤5.9e-8 — the Y=1.5
+  heavy-tail sum is platform-sensitive at ~2e-8 (3.5e-8 Linux, 5.9e-8
+  Windows; see `docs/RESULTS.md`); Table 6.8 (VG)
   10.993703187 / 19.099354724 reproduced to 8.5e-9 at the book's N=4096.
 
 **Remaining anchor gaps** (everything else above is anchored to printed
