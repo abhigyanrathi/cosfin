@@ -1,51 +1,68 @@
-"""Tests for the Monte Carlo European pricer.
-
-The convergence anchors are the standard textbook Black-Scholes values for
-S0 = K = 100, r = 0.05, sigma = 0.20, T = 1, q = 0:
-    call = 10.4506, put = 5.5735.
-"""
+"""Monte Carlo estimator tests: unbiasedness within CLT bands, SE scaling."""
 
 from __future__ import annotations
 
 import numpy as np
 import pytest
 
+from pyfinlib_practice.core.gbm import simulate_gbm_paths
+from pyfinlib_practice.core.jump_diffusion import simulate_merton_paths
+from pyfinlib_practice.models.black_scholes import black_scholes_price
+from pyfinlib_practice.models.jump_diffusion import merton_jump_price
 from pyfinlib_practice.numerical.monte_carlo import monte_carlo_european_price
 
-CALL_ANCHOR = 10.4506
-PUT_ANCHOR = 5.5735
+
+def test_gbm_call_within_confidence_band() -> None:
+    _, paths = simulate_gbm_paths(100.0, 0.05, 0.2, 1.0, 400_000, 1,
+                                  rng=np.random.default_rng(3))
+    result = monte_carlo_european_price(paths[:, -1], 100.0, 0.05, 1.0)
+    closed = float(black_scholes_price(100.0, 100.0, 0.05, 0.2, 1.0))
+    assert abs(result.price - closed) < 4.0 * result.standard_error
+    assert 0.001 < result.standard_error < 0.1
+    assert result.n_paths == 400_000
 
 
-def test_mc_call_converges_to_bs() -> None:
-    res = monte_carlo_european_price(
-        100.0, 100.0, 0.05, 0.20, 1.0, 400_000,
-        option_type="call", rng=np.random.default_rng(0),
-    )
-    # Estimate must sit within four standard errors of the analytic price.
-    assert abs(res.price - CALL_ANCHOR) < 4.0 * res.std_error
+def test_gbm_put_within_confidence_band() -> None:
+    _, paths = simulate_gbm_paths(100.0, 0.05, 0.2, 1.0, 400_000, 1,
+                                  rng=np.random.default_rng(8))
+    result = monte_carlo_european_price(paths[:, -1], 100.0, 0.05, 1.0,
+                                        option_type="put")
+    closed = float(black_scholes_price(100.0, 100.0, 0.05, 0.2, 1.0,
+                                       option_type="put"))
+    assert abs(result.price - closed) < 4.0 * result.standard_error
 
 
-def test_mc_put_converges_to_bs() -> None:
-    res = monte_carlo_european_price(
-        100.0, 100.0, 0.05, 0.20, 1.0, 400_000,
-        option_type="put", rng=np.random.default_rng(1),
-    )
-    assert abs(res.price - PUT_ANCHOR) < 4.0 * res.std_error
+def test_merton_mc_cross_validates_series() -> None:
+    _, paths = simulate_merton_paths(100.0, 0.05, 0.2, 1.0, -0.1, 0.15, 1.0,
+                                     300_000, 1, rng=np.random.default_rng(5))
+    result = monte_carlo_european_price(paths[:, -1], 100.0, 0.05, 1.0)
+    series = float(merton_jump_price(100.0, 100.0, 0.05, 0.2, 1.0,
+                                     lam=1.0, mu_j=-0.1, sigma_j=0.15))
+    assert abs(result.price - series) < 4.0 * result.standard_error
 
 
-def test_mc_standard_error_shrinks_with_more_paths() -> None:
-    small = monte_carlo_european_price(
-        100.0, 100.0, 0.05, 0.20, 1.0, 10_000, rng=np.random.default_rng(2)
-    )
-    large = monte_carlo_european_price(
-        100.0, 100.0, 0.05, 0.20, 1.0, 160_000, rng=np.random.default_rng(2)
-    )
-    # 16x paths -> ~4x smaller standard error.
-    assert large.std_error < 0.5 * small.std_error
+def test_standard_error_scales_inverse_sqrt_n() -> None:
+    _, small = simulate_gbm_paths(100.0, 0.05, 0.2, 1.0, 40_000, 1,
+                                  rng=np.random.default_rng(21))
+    _, large = simulate_gbm_paths(100.0, 0.05, 0.2, 1.0, 160_000, 1,
+                                  rng=np.random.default_rng(22))
+    se_small = monte_carlo_european_price(small[:, -1], 100.0, 0.05, 1.0).standard_error
+    se_large = monte_carlo_european_price(large[:, -1], 100.0, 0.05, 1.0).standard_error
+    assert se_small / se_large == pytest.approx(2.0, rel=0.25)
 
 
-def test_mc_rejects_bad_input() -> None:
+def test_validation() -> None:
     with pytest.raises(ValueError):
-        monte_carlo_european_price(-1.0, 100.0, 0.05, 0.2, 1.0, 1000)
+        monte_carlo_european_price(np.array([100.0]), 100.0, 0.05, 1.0)
     with pytest.raises(ValueError):
-        monte_carlo_european_price(100.0, 100.0, 0.05, 0.2, 1.0, 0)
+        monte_carlo_european_price(np.array([100.0, 101.0]), -1.0, 0.05, 1.0)
+    with pytest.raises(ValueError):
+        monte_carlo_european_price(np.array([100.0, np.inf]), 100.0, 0.05, 1.0)
+    with pytest.raises(ValueError):
+        monte_carlo_european_price(np.array([100.0, 101.0]), 100.0, 0.05, 1.0,
+                                   option_type="straddle")  # type: ignore[arg-type]
+
+
+def test_negative_maturity_rejected() -> None:
+    with pytest.raises(ValueError):
+        monte_carlo_european_price(np.array([100.0, 101.0]), 100.0, 0.05, -1.0)
