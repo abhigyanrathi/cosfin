@@ -2,17 +2,9 @@
 
 [![CI](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml)
 
-Reference ("answer-key") implementations of models and numerical methods
+Implementations of models and numerical methods
 from Oosterlee & Grzelak, *Mathematical Modelling and Computation in
-Finance*, Chapters 2–6, plus the mentor-confirmed Chapter 5–6 replication
-items. The production library is written independently in a separate
-repository; this repo is the AI-written learning companion, used to
-rehearse the maths, packaging, tooling, and Git workflow.
-
-Provenance: the v0.2.0 tree was authored by Claude (July 2026), replacing
-the v0.1.0 Ch2–4 tree and the never-pushed June Ch5–6 work; it fixes the
-v0.1.0 circular import and the degenerate-digital bug, and anchors the COS
-pricers to the published O&G table values.
+Finance*, Chapters 2–6. 
 
 ## Quickstart
 
