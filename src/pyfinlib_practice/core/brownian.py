@@ -1,15 +1,13 @@
-"""Brownian motion (Wiener process) simulation.
+"""Standard Brownian motion path simulation (O&G Chapter 2).
 
-A standard Wiener process ``W(t)`` satisfies (RESULT):
-    * ``W(0) = 0``,
-    * independent increments,
-    * ``W(t) - W(s) ~ Normal(0, t - s)`` for ``0 <= s < t``,
-    * continuous sample paths.
+A standard Brownian motion ``W`` satisfies ``W_0 = 0``, has independent
+increments, and ``W_t - W_s ~ N(0, t - s)`` for ``s < t`` (RESULT: the defining
+properties; existence via the Kolmogorov extension / Levy construction).
 
-This module simulates the more general *arithmetic* Brownian motion
-    ``X(t) = mu * t + sigma * W(t)``
-on an equally spaced grid. Setting ``mu = 0`` and ``sigma = 1`` recovers the
-standard Wiener process.
+On a uniform grid ``t_i = i * dt`` the exact joint law of ``(W_{t_0}, ...,
+W_{t_n})`` is reproduced by cumulatively summing i.i.d. ``N(0, dt)`` draws —
+there is no discretisation error in the *distribution* at grid points, only in
+what happens between them (RESULT: increments are independent Gaussians).
 """
 
 from __future__ import annotations
@@ -21,61 +19,39 @@ import numpy.typing as npt
 def simulate_brownian_paths(
     n_paths: int,
     n_steps: int,
-    t: float,
+    t_end: float,
     *,
-    drift: float = 0.0,
-    volatility: float = 1.0,
     rng: np.random.Generator | None = None,
 ) -> tuple[npt.NDArray[np.float64], npt.NDArray[np.float64]]:
-    """Simulate paths of ``X(t) = drift * t + volatility * W(t)``.
+    """Simulate standard Brownian motion paths on a uniform time grid.
 
     Parameters
     ----------
-    n_paths:
-        Number of independent paths to simulate.
-    n_steps:
-        Number of time steps; the grid has ``n_steps + 1`` points including 0.
-    t:
-        Time horizon (in years). Must be positive.
-    drift, volatility:
-        Coefficients ``mu`` and ``sigma``. ``volatility`` must be non-negative.
+    n_paths, n_steps:
+        Number of independent paths and of time steps (grid has ``n_steps + 1``
+        points including ``t = 0``).
+    t_end:
+        Terminal time ``T > 0``.
     rng:
-        A ``numpy`` random generator. If ``None``, a fresh default generator is
-        created (non-deterministic). Pass ``np.random.default_rng(seed)`` for
-        reproducibility.
+        ``numpy.random.Generator``. Pass a seeded generator for reproducibility
+        (CONVENTION: randomness is always injected, never hidden module state).
 
     Returns
     -------
-    times:
-        Shape ``(n_steps + 1,)`` grid of time points from 0 to ``t``.
-    paths:
-        Shape ``(n_paths, n_steps + 1)`` array; ``paths[:, 0]`` is identically 0.
-
-    Notes
-    -----
-    The increment over a step of size ``dt = t / n_steps`` is exactly
-    ``Normal(drift * dt, (volatility ** 2) * dt)`` (RESULT) — there is no
-    discretisation error for arithmetic Brownian motion because the exact
-    transition law is Gaussian and is sampled directly.
+    (times, paths):
+        ``times`` has shape ``(n_steps + 1,)``; ``paths`` has shape
+        ``(n_paths, n_steps + 1)`` with ``paths[:, 0] == 0``.
     """
     if n_paths <= 0 or n_steps <= 0:
-        raise ValueError("n_paths and n_steps must be positive integers")
-    if t <= 0.0:
-        raise ValueError("t must be positive")
-    if volatility < 0.0:
-        raise ValueError("volatility must be non-negative")
-    if rng is None:
-        rng = np.random.default_rng()
+        raise ValueError("n_paths and n_steps must be positive")
+    if t_end <= 0.0:
+        raise ValueError("t_end must be positive")
+    generator = rng if rng is not None else np.random.default_rng()
 
-    dt = t / n_steps
-    times = np.linspace(0.0, t, n_steps + 1)
-
-    increments = rng.normal(
-        loc=drift * dt,
-        scale=volatility * np.sqrt(dt),
-        size=(n_paths, n_steps),
-    )
-
-    paths = np.zeros((n_paths, n_steps + 1), dtype=np.float64)
-    paths[:, 1:] = np.cumsum(increments, axis=1)
+    dt = t_end / n_steps
+    times = np.linspace(0.0, t_end, n_steps + 1)
+    increments = generator.standard_normal((n_paths, n_steps)) * np.sqrt(dt)
+    paths = np.empty((n_paths, n_steps + 1), dtype=np.float64)
+    paths[:, 0] = 0.0
+    np.cumsum(increments, axis=1, out=paths[:, 1:])
     return times, paths
