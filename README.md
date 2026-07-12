@@ -2,12 +2,9 @@
 
 [![CI](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml)
 
-Reference ("answer-key") implementations of models and numerical methods
+Implementations of models and numerical methods
 from Oosterlee & Grzelak, *Mathematical Modelling and Computation in
-Finance*, Chapters 2–6, plus the mentor-confirmed Chapter 5–6 replication
-items. The production library is written independently in a separate
-repository; this repo is the learning companion, used to
-rehearse the maths, packaging, tooling, and Git workflow.
+Finance*, Chapters 2–6. 
 
 ## Quickstart
 
