@@ -128,8 +128,8 @@ with st.sidebar:
     st.title("pyfinlib-practice")
     st.caption(f"v{__version__}")
     st.markdown(
-        "Interactive demo of the **AI-written answer-key companion** to the "
-        "hand-written `pyfinlib` study project, following Oosterlee & Grzelak, "
+        "Interactive demo of the"
+        " `pyfinlib` study project, following Oosterlee & Grzelak, "
         "*Mathematical Modelling and Computation in Finance* (Ch. 2-6).\n\n"
         "Every value on these pages comes from the installed package — the same "
         "code behind the repo's test suite and the reproduced O&G tables.\n\n"
