@@ -12,6 +12,8 @@ dependencies = ["numpy>=2.0", "scipy>=1.13"]
 [project.optional-dependencies]
 dev = ["pytest>=8", "pytest-cov", "ruff", "mypy"]
 plots = ["matplotlib>=3.8"]
+# Streamlit demo (app/streamlit_app.py, deployed via render.yaml).
+app = ["streamlit>=1.49", "matplotlib>=3.8"]
 
 # src-layout: importable packages live under src/, not the repo root.
 [tool.setuptools.packages.find]
@@ -34,11 +36,14 @@ select = ["E", "F", "I", "N", "UP", "B", "SIM", "RUF"]
 [tool.ruff.lint.per-file-ignores]
 # matplotlib.use("Agg") must run before the pyplot import.
 "scripts/*" = ["E402"]
+# UI display strings legitimately contain Greek letters and the math minus
+# sign; RUF002/RUF003 (docstrings, comments) remain active for app code.
+"app/*" = ["RUF001"]
 
 [tool.mypy]
 python_version = "3.12"
 strict = true
-files = ["src", "tests"]
+files = ["src", "tests", "app"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
