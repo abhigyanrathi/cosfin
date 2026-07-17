@@ -6,15 +6,33 @@ Implementations of models and numerical methods
 from Oosterlee & Grzelak, *Mathematical Modelling and Computation in
 Finance*, Chapters 2–6. 
 
+## Live demo
+
+An interactive Streamlit demo of the library — Black-Scholes and Greeks,
+Lévy-model implied-vol smiles via COS, Breeden-Litzenberger vs. COS density
+recovery, and seeded GBM Monte Carlo — is deployed on Render:
+
+**<https://pyfinlib-practice-demo.onrender.com>**
+
+(Free tier: the first request after ~15 idle minutes waits ~1 min for a cold
+start.) The app is UI glue over the installed package; its compute layer is
+`pyfinlib_practice.demo`, tested and type-checked like everything else. Run
+it locally with:
+
+```bash
+.venv/bin/pip install -e ".[app]"
+.venv/bin/streamlit run app/streamlit_app.py
+```
+
 ## Quickstart
 
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
-.venv/bin/python -m pytest      # 249 tests, ~15-30 s
+.venv/bin/python -m pytest      # 264 tests, ~15-35 s
 .venv/bin/python -m pytest --cov=pyfinlib_practice --cov-report=term-missing
 .venv/bin/ruff check src tests
-.venv/bin/mypy                  # strict, src + tests, 30 files
+.venv/bin/mypy                  # strict, src + tests + app, 33 files
 ```
 
 Requires Python ≥ 3.12, numpy ≥ 2.0, scipy ≥ 1.13.
