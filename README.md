@@ -51,8 +51,7 @@ Requires Python ≥ 3.12, numpy ≥ 2.0, scipy ≥ 1.13.
   Merton, Variance Gamma and CGMY.
 - **Ch6** — COS method: European and digital pricers (per-strike truncation,
   fully vectorised), log-return density recovery, cumulant truncation rule.
-- **Replications** (`pyfinlib_practice.replications`) — the mentor-confirmed
-  Chapter 5-6 items: Tables 6.4/6.5/6.6/6.7/6.8, Figures 5.7/5.8/6.4,
+- **Replications** (`pyfinlib_practice.replications`) — Tables 6.4/6.5/6.6/6.7/6.8, Figures 5.7/5.8/6.4,
   Exercise 6.3, and the p.169 normal/lognormal density-recovery examples.
   Data-returning harnesses; `scripts/make_figures.py` renders the PNGs.
 
