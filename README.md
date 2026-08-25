@@ -100,14 +100,18 @@ Full reproduction transcript with convergence tables: `docs/RESULTS.md`
 
 - Black-Scholes vs the published ATM value 10.4506 and Hull's S=42 example
   (4.76 / 0.81), plus full-precision internal regressions.
-- COS(GBM) vs the closed form: max error 5.5e-14 at N=256; digitals 2.5e-16.
+- COS(GBM) vs the closed form: max error 5.9e-14 at N=256 (measured on
+  Windows; platform-sensitive in the last digits, as for Table 6.7);
+  digitals 2.5e-16.
 - Merton COS vs the independent Chapter-5 series: 4.8e-13 across 5 strikes —
   two unrelated algorithms, one model.
 - Pure-jump CGMY (C,G,M,Y) = (1,5,5,0.5), S=K=100, r=0.1, T=1 vs the
   Fang–Oosterlee (2008) reference **19.812948843118**: reproduced to
   **5.7e-9 untuned** — a genuinely external anchor.
-- Martingale probes `cf(-i, t) = e^{(r-q)t}` at complex argument: ≤ 2e-16
-  for all four models; cumulants vs finite differences of `log cf`: ≤ 5e-9.
+- Martingale probes `cf(-i, t) = e^{(r-q)t}` at complex argument: at machine
+  epsilon (≤ 2.3e-16 measured on Windows; exactly 0 for GBM and Merton, one
+  ulp for CGMY and VG) for all four models; cumulants vs finite differences
+  of `log cf`: ≤ 5e-9.
 - Breeden-Litzenberger on a Black-Scholes surface: density 1.1e-8 pointwise
   vs the lognormal, total mass 1 − 6e-12, mean = forward to 2.5e-9,
   repricing error ≤ 2e-9.
