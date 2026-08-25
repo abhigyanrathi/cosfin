@@ -9,3 +9,5 @@ dist/
 build/
 figures/
 .coverage
+
+.claude/settings.local.json
