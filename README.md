@@ -90,8 +90,8 @@ test cannot catch a masked circular import.
 
 ## Validation
 
-All three gates green: **249 pytest**, **ruff clean**, **mypy --strict
-clean** across 30 files; line coverage **100%** (one documented
+All three gates green: **264 pytest**, **ruff clean**, **mypy --strict
+clean** across 33 files; line coverage **100%** (one documented
 `pragma: no cover` on a provably unreachable defensive guard). Anchor policy: external published values where
 available, cross-method agreement everywhere, and no invented table values.
 Full reproduction transcript with convergence tables: `docs/RESULTS.md`
