@@ -160,3 +160,49 @@ from this machine are not from a CI-matching interpreter unless stated.
 CPython 3.12.14 (into uv's own data directory). Neither touches system Python,
 PATH, or the repo. The 3.12 venv and both Grzelak clones live in the scratch
 directory only.
+
+---
+
+## 2026-08-26 — local Python version: drift, not a decision, now fixed
+
+Asked to state explicitly whether the local-vs-CI Python mismatch (both
+`.venv` and `.venv-1` were 3.14.5; CI matrix is `["3.12", "3.13"]`) was
+intentional. It was not.
+
+**Evidence it's drift:** `.python-version` pins `3.13` explicitly — added
+deliberately at `998cf1f`, never edited since. The CI matrix was set once,
+at the very first commit (`4447bd1`), and never revisited. Nothing in
+CLAUDE.md, README, this log, or the CI workflow itself ever states 3.14 was
+evaluated, accepted, or excluded. Both local venvs were 3.14.5 for the
+mundane reason that it was the only Python present on the machine
+(`AppData/Local/Programs/Python/Python314`) before this session fetched
+3.12 via `uv` for the README re-measurement.
+
+**Not touched, and why:** `pyproject.toml`'s `requires-python = ">=3.12"` is
+an open floor, which is standard practice and not itself evidence of
+anything — narrowing it to exclude 3.14 would fabricate a restriction with
+no supporting evidence (the full gate suite ran clean under 3.14.5 both at
+the start of this session and independently under a clean 3.12.14 venv
+during Work Item 1). CI was not touched either: it already matches the two
+documented targets (the floor and the pin); CI is what local drifted away
+from, not the thing that's wrong.
+
+**Fix:** rebuilt both `.venv` and `.venv-1` under Python 3.13.15 (fetched via
+`uv python install 3.13`), matching `.python-version`. Checked both venvs'
+installed packages first — both contained only the declared `[dev,app,plots]`
+extras plus standard VS Code Jupyter/debug tooling (`ipykernel`, `debugpy`,
+`jedi`), nothing hand-installed or irreplaceable, so recreating was safe.
+Full gate suite re-run clean under 3.13.15: ruff clean, mypy clean on 33
+files, 264/264 passed, 942 statements at 100%.
+
+`uv` itself had to be reinstalled into the system Python
+(`Python314\python.exe -m pip install --user uv`) after the first attempt
+deleted `.venv-1`, which is where `uv` had been living — it's now durable
+infrastructure independent of any project venv. Both 3.12.14 and 3.13.15
+stay cached in uv's own data directory (`%APPDATA%\Roaming\uv\python\`) for
+reuse.
+
+**Not addressed:** why two nearly-identical venvs (`.venv`, `.venv-1`) exist
+at all. Both were fixed for consistency since neither contained anything
+precious, but consolidating to one is a separate tidiness question nobody
+asked about.
