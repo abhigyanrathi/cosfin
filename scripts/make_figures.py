@@ -3,7 +3,7 @@
 Run from the repo root with the package (and the ``plots`` extra) installed:
 ``python scripts/make_figures.py [output_dir]``. Default output: ``figures/``
 (git-ignored; the PNGs are fully reproducible from the seeded harnesses in
-``pyfinlib_practice.replications``).
+``cosfin.replications``).
 """
 
 from __future__ import annotations
@@ -18,8 +18,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import lognorm, norm
 
-from pyfinlib_practice.numerical.cos import cos_density
-from pyfinlib_practice.replications import (
+from cosfin.numerical.cos import cos_density
+from cosfin.replications import (
     FIG_5_7_PARAMS,
     figure_5_7_data,
     figure_5_8_data,

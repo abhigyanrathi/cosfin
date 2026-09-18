@@ -5,7 +5,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.pricing.payoffs import (
+from cosfin.pricing.payoffs import (
     breakeven,
     call_payoff,
     digital_call_payoff,

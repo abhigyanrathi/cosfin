@@ -4,7 +4,7 @@ Numerical layer of the dependency DAG: ``cos`` is self-contained;
 ``monte_carlo`` imports only the leaf module ``pricing.payoffs``.
 """
 
-from pyfinlib_practice.numerical.cos import (
+from cosfin.numerical.cos import (
     CharacteristicFn,
     CumulantsFn,
     cos_density,
@@ -12,7 +12,7 @@ from pyfinlib_practice.numerical.cos import (
     cos_european_price,
     truncation_range,
 )
-from pyfinlib_practice.numerical.monte_carlo import (
+from cosfin.numerical.monte_carlo import (
     MonteCarloResult,
     monte_carlo_european_price,
 )

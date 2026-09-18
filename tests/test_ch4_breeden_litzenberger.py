@@ -11,12 +11,12 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-from pyfinlib_practice.models.black_scholes import (
+from cosfin.models.black_scholes import (
     black_scholes_price,
     butterfly_price,
     digital_price,
 )
-from pyfinlib_practice.models.local_vol import price_from_density, risk_neutral_density
+from cosfin.models.local_vol import price_from_density, risk_neutral_density
 
 SPOT, RATE, SIGMA, MATURITY = 100.0, 0.05, 0.2, 1.0
 

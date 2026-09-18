@@ -12,8 +12,8 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.models.black_scholes import black_scholes_price
-from pyfinlib_practice.pricing.greeks import delta, gamma, rho, theta, vega
+from cosfin.models.black_scholes import black_scholes_price
+from cosfin.pricing.greeks import delta, gamma, rho, theta, vega
 
 ARGS = (100.0, 110.0, 0.05, 0.2, 1.0)  # S, K, r, sigma, T — off-ATM on purpose
 Q = 0.03

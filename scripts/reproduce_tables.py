@@ -7,7 +7,7 @@ Run from the repo root with the package installed:
 
 from __future__ import annotations
 
-from pyfinlib_practice.replications import (
+from cosfin.replications import (
     TABLE_6_4_REF,
     TABLE_6_5_REF,
     TABLE_6_7_REF,

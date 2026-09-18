@@ -4,9 +4,9 @@ Bottom layer of the dependency DAG: imports nothing from the rest of the
 library.
 """
 
-from pyfinlib_practice.core.brownian import simulate_brownian_paths
-from pyfinlib_practice.core.gbm import Scheme, gbm_terminal_moments, simulate_gbm_paths
-from pyfinlib_practice.core.jump_diffusion import simulate_merton_paths
+from cosfin.core.brownian import simulate_brownian_paths
+from cosfin.core.gbm import Scheme, gbm_terminal_moments, simulate_gbm_paths
+from cosfin.core.jump_diffusion import simulate_merton_paths
 
 __all__ = [
     "Scheme",

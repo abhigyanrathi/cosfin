@@ -37,7 +37,7 @@ from scipy.special import gamma as gamma_fn  # type: ignore[import-untyped]
 
 
 class CharacteristicModel(Protocol):
-    """Structural interface consumed by ``pyfinlib_practice.numerical.cos``."""
+    """Structural interface consumed by ``cosfin.numerical.cos``."""
 
     def cf(self, u: npt.ArrayLike, t: float) -> npt.NDArray[np.complex128]:
         """Characteristic function of ``ln(S_t / S_0)`` evaluated at ``u``."""

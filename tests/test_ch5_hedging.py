@@ -13,7 +13,7 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.pricing.hedging import delta_hedge_pnl
+from cosfin.pricing.hedging import delta_hedge_pnl
 
 ARGS = (100.0, 100.0, 0.05, 0.2, 1.0)
 

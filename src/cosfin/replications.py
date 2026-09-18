@@ -49,15 +49,15 @@ import numpy as np
 import numpy.typing as npt
 from scipy.stats import lognorm, norm  # type: ignore[import-untyped]
 
-from pyfinlib_practice.models.characteristic_functions import (
+from cosfin.models.characteristic_functions import (
     CGMY,
     GBM,
     Merton,
     VarianceGamma,
 )
-from pyfinlib_practice.models.jump_diffusion import merton_jump_price
-from pyfinlib_practice.models.local_vol import implied_volatility_bracketed
-from pyfinlib_practice.numerical.cos import (
+from cosfin.models.jump_diffusion import merton_jump_price
+from cosfin.models.local_vol import implied_volatility_bracketed
+from cosfin.numerical.cos import (
     CharacteristicFn,
     CumulantsFn,
     _chi,
@@ -67,7 +67,7 @@ from pyfinlib_practice.numerical.cos import (
     cos_european_price,
     truncation_range,
 )
-from pyfinlib_practice.pricing.hedging import delta_hedge_pnl
+from cosfin.pricing.hedging import delta_hedge_pnl
 
 Real = npt.NDArray[np.float64]
 
@@ -150,7 +150,7 @@ def _shared_range_prices(
     book's eq. (6.45) range is evidently much wider. Kept because it is the
     natural common-interval variant and documents the tested hypothesis.
     Call-type payoffs only (all the book tables need). Reuses the
-    ``chi``/``psi`` primitives of :mod:`pyfinlib_practice.numerical.cos` —
+    ``chi``/``psi`` primitives of :mod:`cosfin.numerical.cos` —
     same package, deliberately shared rather than duplicated.
     """
     a, b = truncation_range(cumulants, t, l_trunc)

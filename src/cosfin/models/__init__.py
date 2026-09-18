@@ -5,7 +5,7 @@ Model layer of the dependency DAG: may import ``core``, never ``pricing`` or
 the implied-volatility solvers need it; ``pricing.greeks`` re-exports it.
 """
 
-from pyfinlib_practice.models.black_scholes import (
+from cosfin.models.black_scholes import (
     OptionType,
     black_scholes_price,
     butterfly_price,
@@ -16,15 +16,15 @@ from pyfinlib_practice.models.black_scholes import (
     put_call_parity_residual,
     vega,
 )
-from pyfinlib_practice.models.characteristic_functions import (
+from cosfin.models.characteristic_functions import (
     CGMY,
     GBM,
     CharacteristicModel,
     Merton,
     VarianceGamma,
 )
-from pyfinlib_practice.models.jump_diffusion import merton_jump_price
-from pyfinlib_practice.models.local_vol import (
+from cosfin.models.jump_diffusion import merton_jump_price
+from cosfin.models.local_vol import (
     Method,
     implied_volatility,
     implied_volatility_bracketed,

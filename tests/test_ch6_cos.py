@@ -17,15 +17,15 @@ import numpy as np
 import numpy.typing as npt
 import pytest
 
-from pyfinlib_practice.models.black_scholes import black_scholes_price, digital_price
-from pyfinlib_practice.models.characteristic_functions import (
+from cosfin.models.black_scholes import black_scholes_price, digital_price
+from cosfin.models.characteristic_functions import (
     CGMY,
     GBM,
     Merton,
     VarianceGamma,
 )
-from pyfinlib_practice.models.jump_diffusion import merton_jump_price
-from pyfinlib_practice.numerical.cos import (
+from cosfin.models.jump_diffusion import merton_jump_price
+from cosfin.numerical.cos import (
     cos_density,
     cos_digital_price,
     cos_european_price,

@@ -1,8 +1,8 @@
-"""Streamlit demo for pyfinlib-practice, deployed on Render.
+"""Streamlit demo for cosfin, deployed on Render.
 
 UI glue only: every number shown here is produced by the installed
-``pyfinlib_practice`` package (the same code exercised by the test suite).
-Computation helpers with any real logic live in ``pyfinlib_practice.demo``
+``cosfin`` package (the same code exercised by the test suite).
+Computation helpers with any real logic live in ``cosfin.demo``
 where they are tested and type-checked; this file just wires widgets to them.
 
 Design notes:
@@ -25,27 +25,27 @@ import streamlit as st
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 
-from pyfinlib_practice import __version__
-from pyfinlib_practice.core.gbm import Scheme, simulate_gbm_paths
-from pyfinlib_practice.demo import (
+from cosfin import __version__
+from cosfin.core.gbm import Scheme, simulate_gbm_paths
+from cosfin.demo import (
     DensityComparison,
     gbm_density_comparison,
     levy_smile,
     lognormal_terminal_pdf,
 )
-from pyfinlib_practice.models.black_scholes import OptionType, black_scholes_price, vega
-from pyfinlib_practice.models.characteristic_functions import (
+from cosfin.models.black_scholes import OptionType, black_scholes_price, vega
+from cosfin.models.characteristic_functions import (
     CGMY,
     GBM,
     CharacteristicModel,
     Merton,
     VarianceGamma,
 )
-from pyfinlib_practice.pricing.greeks import delta, gamma, rho, theta
+from cosfin.pricing.greeks import delta, gamma, rho, theta
 
 FloatArray = npt.NDArray[np.float64]
 
-st.set_page_config(page_title="pyfinlib-practice demo", page_icon="📈", layout="wide")
+st.set_page_config(page_title="cosfin demo", page_icon="📈", layout="wide")
 
 
 # ------------------------------------------------------------------ cached compute
@@ -125,7 +125,7 @@ def as_scheme(label: str) -> Scheme:
 
 # ------------------------------------------------------------------ sidebar
 with st.sidebar:
-    st.title("pyfinlib-practice")
+    st.title("cosfin")
     st.caption(f"v{__version__}")
     st.markdown(
         "Interactive demo of the"
@@ -133,7 +133,7 @@ with st.sidebar:
         "*Mathematical Modelling and Computation in Finance* (Ch. 2-6).\n\n"
         "Every value on these pages comes from the installed package — the same "
         "code behind the repo's test suite and the reproduced O&G tables.\n\n"
-        "[Source on GitHub](https://github.com/abhigyanrathi/pyfinlib-practice)"
+        "[Source on GitHub](https://github.com/abhigyanrathi/cosfin)"
     )
     st.divider()
     st.caption(

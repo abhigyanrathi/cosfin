@@ -24,7 +24,7 @@ from typing import NamedTuple
 import numpy as np
 import numpy.typing as npt
 
-from pyfinlib_practice.pricing.payoffs import OptionType, call_payoff, put_payoff
+from cosfin.pricing.payoffs import OptionType, call_payoff, put_payoff
 
 
 class MonteCarloResult(NamedTuple):

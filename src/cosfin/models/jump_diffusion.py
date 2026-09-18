@@ -31,7 +31,7 @@ from __future__ import annotations
 import numpy as np
 import numpy.typing as npt
 
-from pyfinlib_practice.models.black_scholes import OptionType, black_scholes_price
+from cosfin.models.black_scholes import OptionType, black_scholes_price
 
 
 def merton_jump_price(

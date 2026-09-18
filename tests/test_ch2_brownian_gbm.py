@@ -10,8 +10,8 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.core.brownian import simulate_brownian_paths
-from pyfinlib_practice.core.gbm import gbm_terminal_moments, simulate_gbm_paths
+from cosfin.core.brownian import simulate_brownian_paths
+from cosfin.core.gbm import gbm_terminal_moments, simulate_gbm_paths
 
 
 def test_brownian_shapes_and_origin() -> None:
