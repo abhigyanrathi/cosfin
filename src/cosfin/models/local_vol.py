@@ -34,7 +34,7 @@ from typing import Literal
 import numpy as np
 import numpy.typing as npt
 
-from pyfinlib_practice.models.black_scholes import OptionType, black_scholes_price, vega
+from cosfin.models.black_scholes import OptionType, black_scholes_price, vega
 
 Method = Literal["newton", "secant", "bracketed"]
 

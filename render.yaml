@@ -3,7 +3,7 @@
 # Python version comes from .python-version at the repo root (3.13).
 services:
   - type: web
-    name: pyfinlib-practice-demo
+    name: cosfin-demo
     runtime: python
     plan: free
     buildCommand: pip install --upgrade pip && pip install ".[app]"

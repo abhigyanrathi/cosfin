@@ -3,8 +3,8 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyfinlib-practice"
-version = "0.2.0"
+name = "cosfin"
+version = "0.3.0"
 description = "Answer-key implementations of Oosterlee & Grzelak Ch2-6 plus replication harnesses"
 requires-python = ">=3.12"
 dependencies = ["numpy>=2.0", "scipy>=1.13"]
@@ -21,7 +21,7 @@ where = ["src"]
 
 # Ship the py.typed marker (PEP 561) so downstream users get our type hints.
 [tool.setuptools.package-data]
-pyfinlib_practice = ["py.typed"]
+cosfin = ["py.typed"]
 
 [tool.ruff]
 line-length = 100

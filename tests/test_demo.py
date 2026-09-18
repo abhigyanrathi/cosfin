@@ -1,4 +1,4 @@
-"""Tests for ``pyfinlib_practice.demo`` — the compute layer behind the Streamlit app.
+"""Tests for ``cosfin.demo`` — the compute layer behind the Streamlit app.
 
 Anchors used here:
 
@@ -18,13 +18,13 @@ import numpy as np
 import pytest
 from scipy.stats import lognorm  # type: ignore[import-untyped]
 
-from pyfinlib_practice.demo import (
+from cosfin.demo import (
     DensityComparison,
     gbm_density_comparison,
     levy_smile,
     lognormal_terminal_pdf,
 )
-from pyfinlib_practice.models.characteristic_functions import GBM, Merton
+from cosfin.models.characteristic_functions import GBM, Merton
 
 SPOT, R, Q, SIGMA, T = 100.0, 0.05, 0.0, 0.2, 1.0
 

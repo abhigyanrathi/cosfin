@@ -13,7 +13,7 @@ import numpy as np
 import pytest
 from scipy.stats import norm  # type: ignore[import-untyped]
 
-from pyfinlib_practice.models.black_scholes import (
+from cosfin.models.black_scholes import (
     black_scholes_price,
     butterfly_price,
     d1_d2,

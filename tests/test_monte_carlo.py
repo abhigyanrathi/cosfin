@@ -5,11 +5,11 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.core.gbm import simulate_gbm_paths
-from pyfinlib_practice.core.jump_diffusion import simulate_merton_paths
-from pyfinlib_practice.models.black_scholes import black_scholes_price
-from pyfinlib_practice.models.jump_diffusion import merton_jump_price
-from pyfinlib_practice.numerical.monte_carlo import monte_carlo_european_price
+from cosfin.core.gbm import simulate_gbm_paths
+from cosfin.core.jump_diffusion import simulate_merton_paths
+from cosfin.models.black_scholes import black_scholes_price
+from cosfin.models.jump_diffusion import merton_jump_price
+from cosfin.numerical.monte_carlo import monte_carlo_european_price
 
 
 def test_gbm_call_within_confidence_band() -> None:

@@ -22,11 +22,11 @@ from dataclasses import dataclass
 import numpy as np
 import numpy.typing as npt
 
-from pyfinlib_practice.models.black_scholes import black_scholes_price
-from pyfinlib_practice.models.characteristic_functions import GBM, CharacteristicModel
-from pyfinlib_practice.models.local_vol import implied_volatility, risk_neutral_density
-from pyfinlib_practice.numerical.cos import cos_density, truncation_range
-from pyfinlib_practice.numerical.cos import cos_european_price as _cos_price
+from cosfin.models.black_scholes import black_scholes_price
+from cosfin.models.characteristic_functions import GBM, CharacteristicModel
+from cosfin.models.local_vol import implied_volatility, risk_neutral_density
+from cosfin.numerical.cos import cos_density, truncation_range
+from cosfin.numerical.cos import cos_european_price as _cos_price
 
 
 def lognormal_terminal_pdf(
@@ -45,7 +45,7 @@ def lognormal_terminal_pdf(
 
     ``mu`` is the *arithmetic* drift (the SDE coefficient); pass ``r - q``
     for the risk-neutral density. Matches the convention of
-    ``pyfinlib_practice.core.gbm.simulate_gbm_paths``.
+    ``cosfin.core.gbm.simulate_gbm_paths``.
     """
     if s0 <= 0.0 or sigma <= 0.0 or t <= 0.0:
         raise ValueError("s0, sigma and t must be positive")

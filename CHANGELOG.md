@@ -21,6 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   claiming a single cross-platform figure (`260afaa`).
 - README revised twice for clarity on project purpose and scope
   (`a4b45ef`, `0c56264`); Streamlit sidebar wording adjusted (`553d6a1`).
+- Package renamed `pyfinlib_practice` → `cosfin`; GitHub repo renamed
+  `pyfinlib-practice` → `cosfin` to follow. See `docs/tasks/task_1b.md`.
 
 ### Fixed
 - Ruff violations in the demo notebook that were blocking CI (`6f92dd5`).

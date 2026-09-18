@@ -11,17 +11,17 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.core.gbm import gbm_terminal_moments
-from pyfinlib_practice.core.jump_diffusion import simulate_merton_paths
-from pyfinlib_practice.models.black_scholes import black_scholes_price
-from pyfinlib_practice.models.characteristic_functions import (
+from cosfin.core.gbm import gbm_terminal_moments
+from cosfin.core.jump_diffusion import simulate_merton_paths
+from cosfin.models.black_scholes import black_scholes_price
+from cosfin.models.characteristic_functions import (
     CGMY,
     GBM,
     CharacteristicModel,
     Merton,
     VarianceGamma,
 )
-from pyfinlib_practice.models.jump_diffusion import merton_jump_price
+from cosfin.models.jump_diffusion import merton_jump_price
 
 MODELS: list[tuple[str, CharacteristicModel, float, float]] = [
     ("gbm", GBM(r=0.05, q=0.0, sigma=0.2), 0.05, 0.0),

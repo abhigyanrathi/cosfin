@@ -11,8 +11,8 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from pyfinlib_practice.models.black_scholes import OptionType, black_scholes_price
-from pyfinlib_practice.models.local_vol import (
+from cosfin.models.black_scholes import OptionType, black_scholes_price
+from cosfin.models.local_vol import (
     Method,
     implied_volatility,
     implied_volatility_bracketed,

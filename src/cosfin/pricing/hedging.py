@@ -38,9 +38,9 @@ from __future__ import annotations
 import numpy as np
 import numpy.typing as npt
 
-from pyfinlib_practice.models.black_scholes import OptionType, black_scholes_price
-from pyfinlib_practice.pricing.greeks import delta
-from pyfinlib_practice.pricing.payoffs import call_payoff, put_payoff
+from cosfin.models.black_scholes import OptionType, black_scholes_price
+from cosfin.pricing.greeks import delta
+from cosfin.pricing.payoffs import call_payoff, put_payoff
 
 
 def delta_hedge_pnl(

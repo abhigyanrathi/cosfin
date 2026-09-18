@@ -5,9 +5,9 @@ Top layer of the dependency DAG: may import ``core`` and ``models``.
 creating a cycle.
 """
 
-from pyfinlib_practice.pricing.greeks import delta, gamma, rho, theta, vega
-from pyfinlib_practice.pricing.hedging import delta_hedge_pnl
-from pyfinlib_practice.pricing.payoffs import (
+from cosfin.pricing.greeks import delta, gamma, rho, theta, vega
+from cosfin.pricing.hedging import delta_hedge_pnl
+from cosfin.pricing.payoffs import (
     Position,
     breakeven,
     call_payoff,

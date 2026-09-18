@@ -15,8 +15,8 @@ from itertools import pairwise
 import numpy as np
 import pytest
 
-from pyfinlib_practice.models.black_scholes import black_scholes_price, digital_price
-from pyfinlib_practice.replications import (
+from cosfin.models.black_scholes import black_scholes_price, digital_price
+from cosfin.replications import (
     FIG_5_8_PANELS,
     PARAMETER_PROVENANCE,
     TABLE_6_4_REF,
@@ -228,9 +228,9 @@ def test_table_6_5_book_range_variant_hits_same_reference() -> None:
 def test_figure_5_8_wing_guard_returns_nan(monkeypatch: pytest.MonkeyPatch) -> None:
     # Unit-test the except->nan guard directly: strikes whose quotes fall
     # outside the invertible region must come back as gaps, not crashes.
-    from pyfinlib_practice import replications
-    from pyfinlib_practice.models.characteristic_functions import CGMY
-    from pyfinlib_practice.replications import cgmyb_implied_volatility_curve
+    from cosfin import replications
+    from cosfin.models.characteristic_functions import CGMY
+    from cosfin.replications import cgmyb_implied_volatility_curve
 
     def unsolvable(*args: object, **kwargs: object) -> float:
         raise ValueError("outside the no-arbitrage bounds")

@@ -14,27 +14,27 @@ import sys
 
 import pytest
 
-import pyfinlib_practice
+import cosfin
 
 MODULES = [
-    "pyfinlib_practice",
-    "pyfinlib_practice.core",
-    "pyfinlib_practice.core.brownian",
-    "pyfinlib_practice.core.gbm",
-    "pyfinlib_practice.core.jump_diffusion",
-    "pyfinlib_practice.models",
-    "pyfinlib_practice.models.black_scholes",
-    "pyfinlib_practice.models.characteristic_functions",
-    "pyfinlib_practice.models.jump_diffusion",
-    "pyfinlib_practice.models.local_vol",
-    "pyfinlib_practice.numerical",
-    "pyfinlib_practice.numerical.cos",
-    "pyfinlib_practice.numerical.monte_carlo",
-    "pyfinlib_practice.pricing",
-    "pyfinlib_practice.replications",
-    "pyfinlib_practice.pricing.greeks",
-    "pyfinlib_practice.pricing.hedging",
-    "pyfinlib_practice.pricing.payoffs",
+    "cosfin",
+    "cosfin.core",
+    "cosfin.core.brownian",
+    "cosfin.core.gbm",
+    "cosfin.core.jump_diffusion",
+    "cosfin.models",
+    "cosfin.models.black_scholes",
+    "cosfin.models.characteristic_functions",
+    "cosfin.models.jump_diffusion",
+    "cosfin.models.local_vol",
+    "cosfin.numerical",
+    "cosfin.numerical.cos",
+    "cosfin.numerical.monte_carlo",
+    "cosfin.pricing",
+    "cosfin.replications",
+    "cosfin.pricing.greeks",
+    "cosfin.pricing.hedging",
+    "cosfin.pricing.payoffs",
 ]
 
 
@@ -55,19 +55,19 @@ def test_cold_import_each_module(module: str) -> None:
 
 def test_cold_import_pricing_then_models() -> None:
     # The exact order that tripped the latent v0.1.0 cycle.
-    _cold_import("import pyfinlib_practice.pricing; import pyfinlib_practice.models")
+    _cold_import("import cosfin.pricing; import cosfin.models")
 
 
 def test_cold_import_models_then_pricing() -> None:
-    _cold_import("import pyfinlib_practice.models; import pyfinlib_practice.pricing")
+    _cold_import("import cosfin.models; import cosfin.pricing")
 
 
 def test_cold_import_local_vol_directly() -> None:
-    _cold_import("from pyfinlib_practice.models.local_vol import implied_volatility")
+    _cold_import("from cosfin.models.local_vol import implied_volatility")
 
 
 def test_version() -> None:
-    assert pyfinlib_practice.__version__ == "0.2.0"
+    assert cosfin.__version__ == "0.3.0"
 
 
 @pytest.mark.parametrize(
@@ -76,13 +76,13 @@ def test_version() -> None:
 def test_all_exports_resolve(subpackage: str) -> None:
     import importlib
 
-    module = importlib.import_module(f"pyfinlib_practice.{subpackage}")
+    module = importlib.import_module(f"cosfin.{subpackage}")
     for name in module.__all__:
         assert getattr(module, name) is not None
 
 
 def test_vega_reexport_is_canonical_object() -> None:
-    from pyfinlib_practice.models import black_scholes
-    from pyfinlib_practice.pricing import greeks
+    from cosfin.models import black_scholes
+    from cosfin.pricing import greeks
 
     assert greeks.vega is black_scholes.vega
