@@ -12,9 +12,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Demo notebook `notebooks/pyfinlib_practice_demo.ipynb` (`15c8e89`).
 - `docs/RESULTS.md`, a full reproduction transcript for the Chapter 5-6
   convergence tables, plus a CI badge in the README (`260afaa`).
-- Project instructions (`CLAUDE.md`), task specifications under
-  `docs/tasks/`, a decisions log (`docs/decisions.md`), and permission
-  guardrails in `.claude/settings.json` (`8af59c4`).
 
 ### Changed
 - Table 6.7 (CGMYB, Y=1.5) documented as platform-sensitive rather than
