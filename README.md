@@ -1,4 +1,4 @@
-# pyfinlib-practice
+# cosfin
 
 [![CI](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhigyanrathi/pyfinlib-practice/actions/workflows/ci.yml)
 
